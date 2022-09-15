@@ -1,0 +1,38 @@
+package Uebungsklausur.Aufgabe2;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
+public class JavaCreateDirectory{
+
+    public static void main(String[] args) throws IOException {
+
+        //Ordnerstruktur
+        String fileName = "C:/log/uebungsklausur";
+        Path path = Paths.get(fileName);
+        Files.createDirectories(path);
+        System.out.println("New Directory created !  "+fileName);
+        
+        //Heutiges Datum anzeigen lassen
+        LocalDateTime todaysDate = LocalDateTime.now();
+        System.out.println(todaysDate);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm"); //Zeitformat festlegen
+
+        //FileWriter-Klasse und PrintWriter-Klasse erstellen
+        try {
+            FileWriter fileWriter = new FileWriter("meine_log_datei.txt"); //FileWriter erstellt und schreibt rein
+            fileWriter.write("");
+            
+            PrintWriter printWriter = new PrintWriter(fileWriter); //PrintWriter hängt an Datei an
+            printWriter.print("Error Log: \n");
+            printWriter.print("Error 500: Internal Error. " + dtf.format(todaysDate) + " Uhr");
+            printWriter.close();
+            fileWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
