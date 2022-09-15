@@ -1,0 +1,88 @@
+package Uebungsklausur.Aufgabe4;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+public class Person implements Serializable{
+    private static final long serialVersionUID = 123456L;
+    public String vorname;
+    public String nachname;
+    public String wohnort;
+
+    public String getVorname() {
+        return vorname;
+    }
+    public String getNachname() {
+        return nachname;
+    }
+    public String getWohnort() {
+        return wohnort;
+    }
+    public void setVorname(String vorname) {
+        this.vorname = vorname;
+    }
+    public void setNachname(String nachname) {
+        this.nachname = nachname;
+    }
+    public void setWohnort(String wohnort) {
+        this.wohnort = wohnort;
+    }
+    public Person(String vorname, String nachname, String wohnort) {
+        this.vorname = vorname;
+        this.nachname = nachname;
+        this.wohnort = wohnort;
+    }
+
+    public String toString() {
+        String output = vorname + " " + nachname + " wohnt in " +  wohnort + ".";
+        return output;
+    }
+
+    public static void main(String[] args) {
+        Person p1 = new Person("Max", "Mustermann", "Dresden");
+        Person p2 = new Person("Tim", "Cool", "Leipzig");
+        
+        System.out.println("Serialisierte Person...");
+        System.out.println(p1.toString());
+        System.out.println(p2.toString());
+
+        //Serialisierung des Objekts
+        try {
+            FileOutputStream fileOut = new FileOutputStream("personen.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(p1);
+            out.writeObject(p2);
+            out.close();
+            fileOut.close();
+            System.out.printf("Serialisierte Daten werden gespeichert in personen.ser\n");
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+
+        //Deserialisierung des Objekts
+        Person p3 = null;
+        Person p4 = null;
+        try {
+           FileInputStream fileIn = new FileInputStream("personen.ser");
+           ObjectInputStream in = new ObjectInputStream(fileIn);
+           p3 = (Person) in.readObject();
+           p4 = (Person) in.readObject();
+           in.close();
+           fileIn.close();
+        } catch (IOException i) {
+           i.printStackTrace();
+           return;
+        } catch (ClassNotFoundException c) {
+           System.out.println("Person Klasse nicht gefunden.");
+           c.printStackTrace();
+           return;
+        }
+        System.out.println("Deserialisierte Person...");
+        System.out.println(p3.toString());
+        System.out.println(p4.toString());
+    }
+}
