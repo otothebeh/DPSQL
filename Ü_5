@@ -1,0 +1,70 @@
+public static void converttoxml(StudierendenListe Liste) {
+        try {
+ 
+            DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
+            Document document = documentBuilder.newDocument();
+ 
+            List<Studierender> StudierenderObjekte = Liste.getStudListe();
+
+            Element root = document.createElement("StudierendenListe");
+            document.appendChild(root);
+            Element Studierender1 = document.createElement("Studierender");
+            Element Studierender2 = document.createElement("Studierender2");
+            Element Studierender3 = document.createElement("Studierender3");
+            root.appendChild(Studierender1);
+            root.appendChild(Studierender2);
+            root.appendChild(Studierender3);
+
+            Element Name1 = document.createElement("Name");
+            Name1.appendChild(document.createTextNode(StudierenderObjekte.get(0).getName()));
+            Studierender1.appendChild(Name1);
+ 
+            Element Jahrgang1 = document.createElement("Jahrgang");
+            Jahrgang1.appendChild(document.createTextNode(StudierenderObjekte.get(0).getJahrgang()));
+            Studierender1.appendChild(Jahrgang1);
+
+            Element Nummer1 = document.createElement("Nummer");
+            Nummer1.appendChild(document.createTextNode(StudierenderObjekte.get(0).getNummber()));
+            Studierender1.appendChild(Nummer1);
+Element Name2 = document.createElement("Name");
+            Name2.appendChild(document.createTextNode(StudierenderObjekte.get(1).getName()));
+            Studierender2.appendChild(Name2);
+ 
+            Element Jahrgang2 = document.createElement("Jahrgang");
+            Jahrgang2.appendChild(document.createTextNode(StudierenderObjekte.get(1).getJahrgang()));
+            Studierender2.appendChild(Jahrgang2);
+
+            Element Nummer2 = document.createElement("Nummer");
+            Nummer2.appendChild(document.createTextNode(StudierenderObjekte.get(1).getNummber()));
+            Studierender2.appendChild(Nummer2);
+
+
+            Element Name3 = document.createElement("Name");
+            Name3.appendChild(document.createTextNode(StudierenderObjekte.get(2).getName()));
+            Studierender3.appendChild(Name3);
+ 
+            Element Jahrgang3 = document.createElement("Jahrgang");
+            Jahrgang3.appendChild(document.createTextNode(StudierenderObjekte.get(2).getJahrgang()));
+            Studierender3.appendChild(Jahrgang3);
+
+            Element Nummer3 = document.createElement("Nummer");
+            Nummer3.appendChild(document.createTextNode(StudierenderObjekte.get(2).getNummber()));
+            Studierender3.appendChild(Nummer3);
+
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource domSource = new DOMSource(document);
+            StreamResult streamResult = new StreamResult(new File("C:/Users/felix.herpich/OneDrive - SoftwareONE/Desktop/ba2/Jav/Aufgabe5/converttoXML.xml"));
+ 
+            transformer.transform(domSource, streamResult);
+ 
+            System.out.println("Done creating XML File");
+ 
+        } catch (ParserConfigurationException pce) {
+            pce.printStackTrace();
+        } catch (TransformerException tfe) {
+            tfe.printStackTrace();
+        }
+    }
