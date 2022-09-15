@@ -1,0 +1,72 @@
+package Uebungsklausur.Aufgabe3;
+
+import java.util.*;
+
+public class Kontakt {
+
+    private String name;
+    private String strasse;
+    private String ort;
+
+    public Kontakt(String name, String strasse, String ort) {
+        this.name = name;
+        this.strasse = strasse;
+        this.ort = ort;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getStrasse() {
+        return strasse;
+    }
+
+    public String getOrt() {
+        return ort;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setStrasse(String strasse) {
+        this.strasse = strasse;
+    }
+
+    public void setOrt(String ort) {
+        this.ort = ort;
+    }
+
+    public String toString() {
+        String output = name + " wohnt in " + strasse + ", " + ort;
+        return output;
+    }
+
+    public static void main(String[] args) {
+        Kontakt[] person = new Kontakt[5];
+        person[0] = new Kontakt ("Franz Strauß", "Franzstraße 45", "Leipzig");
+        person[1] = new Kontakt ("Phil Boss", "Fahrradstraße 1", "Radelberg");
+        person[2] = new Kontakt ("Rudi Rüssel", "Muskelberg 45", "Leipzig");
+        person[3] = new Kontakt ("Florian Thürkow", "Cooler Typ-Straße 69", "Zürich");
+        person[4] = new Kontakt ("Axel Schweiß", "Franzstraße 45", "Leipzig");
+
+        print(person);
+        System.out.println(search(person, "Axel Schweiß"));
+    }
+
+    public static void print(Kontakt[] person) {
+        for (Kontakt kontakt : person) {
+            System.out.println(kontakt);
+        }
+    }
+    public static int search(Kontakt[] person, String suchZeichenkette){
+        int ret = -1;
+        for (int i = 0; i <= person.length - 1; i++) {
+            if (person[i].getName().contains(suchZeichenkette)) {
+                ret = i;
+            }
+        }
+        return ret;
+    }
+}
